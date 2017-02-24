@@ -4,7 +4,7 @@
   </head>
   <body>
     <h1>3695 Raspberry Pi Video Stream</h1>
-    <img src="{{ url_for('video_feed') }}" id= Stream>
+    <img src="{{ url_for('front_feed') }}" id= Stream>
 	<button onclick="front_cam()" id= demo2>Back Cam</button>
 	<button onclick="switch_state()" id= demo2>Recording</button>
 	
@@ -17,17 +17,17 @@
 		document.getElementById("demo2").innerHTML = "Back Cam";
 		document.getElementById("Stream").src = "";
 		document.getElementById("demo2").onclick = function() {front_cam()};
-		document.getElementById("Stream").src = "{{ url_for('video_feed') }}";
+		document.getElementById("Stream").src = "{{ url_for('front_feed') }}";
 	}
 	function front_cam() {
 		document.getElementById("demo2").innerHTML = "Front Cam";
 		document.getElementById("Stream").src = "";
 		document.getElementById("demo2").onclick = function() {back_cam()};
-		document.getElementById("Stream").src = "{{ url_for('front_feed') }}";
+		document.getElementById("Stream").src = "{{ url_for('back_feed') }}";
 	}
 	function switch_state(){
 		document.getElementById("Stream").src = "";
-		window.location.href = '/camera_recording_process_change'
+		window.location.href = '/camera_process_change'
 	}
 	</script>
 	
