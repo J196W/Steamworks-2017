@@ -1,8 +1,9 @@
 from flask import Flask, render_template, Response, redirect, url_for
 import cv2
-from record import Record
+from camera import Camera
 
-recorder = Record()
+cam1 = Camera(0)
+cam2 = Camera(1)
 app = Flask(__name__)
 
 
@@ -10,11 +11,11 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-def gen(num):
+def gen(camera):
     global recorder
     while True:
-
-        frame = recorder.get_curr_frame(num)
+        
+        frame = camera.get_frame()
 
         frame = cv2.resize(frame, (640, 360))
 
@@ -26,19 +27,14 @@ def gen(num):
 
 @app.route('/front_feed')
 def front_feed():
-    return Response(gen(1),
+    return Response(gen(cam1),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/back_feed')
 def back_feed():
-    return Response(gen(2),
+    return Response(gen(cam2),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/camera_process_change')
-def camera_process_change():
-    global recorder
-    recorder.end()
-    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(host='localhost', debug=False, port=80)
