@@ -3,7 +3,6 @@ import cv2
 from camera import Camera
 
 cam1 = Camera(0)
-cam2 = Camera(1)
 app = Flask(__name__)
 
 
@@ -32,7 +31,7 @@ def front_feed():
 
 @app.route('/back_feed')
 def back_feed():
-    return Response(gen(cam2),
+    return Response(gen(cam1),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
