@@ -16,7 +16,7 @@ def gen(num):
 
         frame = recorder.get_curr_frame(num)
 
-        frame = cv2.resize(frame, (640, 360))
+        frame = cv2.resize(frame, (384, 216))
 
         sucess, jpeg = cv2.imencode('.jpg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 30])
 
@@ -41,4 +41,4 @@ def camera_process_change():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(host='localhost', debug=False, port=80)
+    app.run(host='0.0.0.0', debug=False, port=80)
